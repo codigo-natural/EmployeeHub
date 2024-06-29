@@ -1,5 +1,19 @@
+import axios from "axios"
+import { useState } from "react"
 
 export const Login = () => {
+  const [values, setValues] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.post('http://localhost:3000/auth/adminlogin')
+      .then(result => console.log(result))
+      .catch(err => console.log(err))
+  }
+
   return (
     <div className="bg-white dark:bg-gray-900">
       <div className="flex justify-center h-screen">
@@ -22,13 +36,17 @@ export const Login = () => {
             </div>
 
             <div className="mt-8">
-              <form className="space-y-6">
+              <form
+                className="space-y-6"
+                onSubmit={handleSubmit}
+              >
                 <div
                   className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500"
                 >
                   <input
                     type="text"
                     placeholder="Email"
+                    onChange={(e) => setValues({ ...values, email: e.target.value })}
                     className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none text-white"
                   />
                 </div>
@@ -39,12 +57,14 @@ export const Login = () => {
                   <input
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => setValues({ ...values, password: e.target.value })}
                     className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none text-white"
                   />
                 </div>
 
                 <div className="mt-6">
                   <button
+                    type="submit"
                     className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                     Log in
                   </button>
