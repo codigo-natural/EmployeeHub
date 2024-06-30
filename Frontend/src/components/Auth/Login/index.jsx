@@ -1,16 +1,21 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
   const [values, setValues] = useState({
     email: "",
     password: ""
   })
+  const navigate = useNavigate()
+  axios.defaults.withCredentials = true
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('http://localhost:3000/auth/adminlogin')
-      .then(result => console.log(result))
+    axios.post('http://localhost:3000/auth/adminlogin', values)
+      .then(result => {
+        navigate('/dashboard')
+      })
       .catch(err => console.log(err))
   }
 
