@@ -1,5 +1,5 @@
 import mysql from "mysql";
-import { config } from "../config";
+import { config } from "../config/index.js";
 
 const connection = mysql.createConnection({
   host: config.dbhost,
@@ -15,3 +15,5 @@ connection.connect(function (err) {
     console.log("DB Disconnected!");
   }
 });
+
+export default connection;
