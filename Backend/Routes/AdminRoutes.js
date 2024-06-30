@@ -1,5 +1,6 @@
 import express from "express";
 import connection from "../utils/db.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -11,9 +12,15 @@ router.post("/adminlogin", (req, res) => {
     } else {
       if (result.length > 0) {
         const email = result[0].email;
-        res.send({ loginStatus: true, email: email });
+        const token = jwt.sign(
+          { role: "admin", email: email },
+          "jwt_secret_key",
+          { expiresIn: "1d" }
+        );
+        res.cookie('token', token)
+        return res.json({ loginStatus: true });
       } else {
-        res.send({ message: "No user found" });
+        return res.json({ loginStatus: false, Error:"Wrong email or password" });
       }
     }
   });
