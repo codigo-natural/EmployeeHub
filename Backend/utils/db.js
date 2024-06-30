@@ -1,18 +1,18 @@
-import mysql from "mysql";
+import mysql2 from "mysql2"
 import { config } from "../config/index.js";
 
-const connection = mysql.createConnection({
+const connection = mysql2.createConnection({
   host: config.dbhost,
   user: config.dbUser,
   password: config.dbPassword,
   database: config.database,
 });
 
-connection.connect(function (err) {
+connection.connect((err) => {
   if (err) {
-    console.log("DB Connected!");
+    console.log("connection error:", err.stack);
   } else {
-    console.log("DB Disconnected!");
+    console.log("DB Connected!", connection.threadId);
   }
 });
 
