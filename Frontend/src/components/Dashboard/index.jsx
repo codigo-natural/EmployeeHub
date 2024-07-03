@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 import { useState } from "react"
 import dashboard from '../../../public/dashboard.png'
 import ManageEmploteers from '../../../public/interviewer.png'
@@ -25,15 +25,15 @@ export const Dashboard = () => {
             <img src={dashboard} alt="Logo" className="h-6 w-6 mr-2" />
             {isSidebarOpen && <span>Dashboard</span>}
           </Link>
-          <Link to="/employees" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
+          <Link to="/dashboard/employee" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
             <img src={ManageEmploteers} alt="manage employees" className="h-6 w-6 mr-2" />
             {isSidebarOpen && <span>Manage Employees</span>}
           </Link>
-          <Link to="/categories" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
+          <Link to="/dashboard/category" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
             <img src={category} alt="category" className="h-6 w-6 mr-2" />
             {isSidebarOpen && <span>Category</span>}
           </Link>
-          <Link to="/profile" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
+          <Link to="/dashboard/profile" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
             <img src={profile} alt="profile" className="h-6 w-6 mr-2" />
             {isSidebarOpen && <span>Profile</span>}
           </Link>
@@ -56,7 +56,7 @@ export const Dashboard = () => {
           <div className="px-4 py-6 sm:px-0">
             <div className="border-4 border-dashed border-gray-200 rounded-lg h-96">
               {/* Placeholder para gráficas */}
-              <p className="text-center pt-20">Aquí iran gráficas y otros elementos</p>
+              <Outlet />
             </div>
           </div>
         </main>
