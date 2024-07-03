@@ -21,10 +21,10 @@ export const Dashboard = () => {
           </button>
         </div>
         <nav className="mt-8">
-          <Link to="/dashboard" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
-            <img src={dashboard} alt="Logo" className="h-6 w-6 mr-2" />
-            {isSidebarOpen && <span>Dashboard</span>}
-          </Link>
+            <Link to="/dashboard" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
+              <img src={dashboard} alt="Logo" className="h-6 w-6 mr-2" />
+              {isSidebarOpen && <span>Dashboard</span>}
+            </Link>
           <Link to="/dashboard/employee" className={`flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-gray-100 hover:text-gray-900 ${!isSidebarOpen && 'justify-center'}`}>
             <img src={ManageEmploteers} alt="manage employees" className="h-6 w-6 mr-2" />
             {isSidebarOpen && <span>Manage Employees</span>}
