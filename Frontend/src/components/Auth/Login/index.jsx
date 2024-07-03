@@ -1,16 +1,26 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const Login = () => {
+  const [error, setError] = useState(null)
   const [values, setValues] = useState({
     email: "",
     password: ""
   })
+  const navigate = useNavigate()
+  axios.defaults.withCredentials = true
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    axios.post('http://localhost:3000/auth/adminlogin')
-      .then(result => console.log(result))
+    axios.post('http://localhost:3000/auth/adminlogin', values)
+      .then(result => {
+        if (result.data.loginStatus) {
+          navigate('/dashboard')
+        } else {
+          setError(result.data.Error)
+        }
+      })
       .catch(err => console.log(err))
   }
 
@@ -36,6 +46,9 @@ export const Login = () => {
             </div>
 
             <div className="mt-8">
+              <div className="text-red-500">
+                {error && error}
+              </div>
               <form
                 className="space-y-6"
                 onSubmit={handleSubmit}
@@ -70,12 +83,11 @@ export const Login = () => {
                   </button>
                 </div>
 
+                <div className="">
+                  <input type="checkbox" name="tick" id="tick" className="mr-2" />
+                  <label htmlFor="tick" className="text-sm text-gray-600 dark:text-gray-200">You are Agree with terms & conditions</label>
+                </div>
               </form>
-              <div className="mt-2">
-                <input type="checkbox" name="tick" id="tick" className="mr-2" />
-                <label htmlFor="tick" className="text-sm text-gray-600 dark:text-gray-200">You are Agree with terms & conditions</label>
-              </div>
-
             </div>
           </div>
         </div>
