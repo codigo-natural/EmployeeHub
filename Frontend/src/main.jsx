@@ -9,6 +9,7 @@ import { Home } from './components/Home/index.jsx'
 import { Employee } from './components/Employee/index.jsx'
 import { Category } from './components/Category/index.jsx'
 import { Profile } from './components/Profile/index.jsx'
+import { AddCategory } from './components/AddCategory/index.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='/dashboard/category' element={<Category />} />
           <Route path='/dashboard/employee' element={<Employee />} />
           <Route path='/dashboard/profile' element={<Profile />} />
+          <Route path='/dashboard/add_catgory' element={<AddCategory />} />
         </Route>
         <Route path='*' element={<p>404</p>} />
       </Routes>
