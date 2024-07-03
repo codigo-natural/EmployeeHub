@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import adminRouter from "./Routes/AdminRoutes.js";
-import addCategory from "./Routes/AddCategory.js";
+import Category from "./Routes/Categorys.js";
 import { config } from "./config/index.js";
 
 const PORT = config.port;
@@ -16,7 +16,7 @@ app.use(
 );
 app.use(express.json());
 app.use("/auth", adminRouter);
-app.use("/auth", addCategory);
+app.use("/auth", Category);
 
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);
