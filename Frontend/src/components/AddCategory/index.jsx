@@ -1,14 +1,21 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
 
 export const AddCategory = () => {
   const [categoryName, setCategoryName] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:3000/auth/add_category', { categoryName })
       .then(res => {
-        console.log(res.data);
+        if (res.data.Status) {
+          navigate('/dashboard/category');
+        } else {
+          alert(res.data.Error)
+        }
       })
       .catch(err => {
         console.log(err);
