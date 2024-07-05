@@ -13,7 +13,7 @@ export const AddEmployee = () => {
     password: '',
     salary: '',
     address: '',
-    category: '',
+    category_id: '',
     image: ''
   });
 
@@ -31,7 +31,6 @@ export const AddEmployee = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Employee data:', employee);
     api.post('/auth/add_employee', employee)
       .then(response => {
         if (response.data.Status) {
@@ -48,7 +47,7 @@ export const AddEmployee = () => {
       password: '',
       salary: '',
       address: '',
-      category: '',
+      category_id: '',
       image: ''
     });
   };
@@ -137,12 +136,12 @@ export const AddEmployee = () => {
               />
             </div>
             <div className="mt-3">
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+              <label htmlFor="category_id" className="block text-sm font-medium text-gray-700">Category</label>
               <select
-                name="category"
-                id="category"
+                name="category_id"
+                id="category_id"
                 className="mt-1 block w-full outline-none focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                value={employee.category}
+                value={employee.category_id}
                 onChange={handleChange}
               >
                 <option value="" className="focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">Select a category</option>
