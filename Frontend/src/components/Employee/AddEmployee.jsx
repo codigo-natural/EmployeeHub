@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "../Shared/Input";
 import { api } from "../../services/api";
+import { useNavigate } from 'react-router-dom'
 
 export const AddEmployee = () => {
   const [categories, setCategories] = useState([]);
@@ -17,24 +18,35 @@ export const AddEmployee = () => {
     image: ''
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
 
   }, [])
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     setEmployee(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: files ? files[0] : value
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    api.post('/auth/add_employee', employee)
+    const formData = new FormData();
+    for (let key in employee) {
+      formData.append(key, employee[key]);
+    }
+
+    api.post('/auth/add_employee', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
       .then(response => {
         if (response.data.Status) {
-          console.log('Employee added successfully');
+          navigate('/dashboard/employee')
         } else {
           console.error('Failed to add employee');
         }
