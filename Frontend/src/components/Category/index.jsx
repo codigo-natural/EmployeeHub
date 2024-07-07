@@ -18,9 +18,6 @@ export const Category = () => {
       // Asumimos que tienes un endpoint para obtener las categorías
       const response = await api.get('/auth/category');
       console.log(response)
-      // if (!response.ok) {
-      //   throw new Error('Failed to fetch categories');
-      // }
       if (response.data.Status) {
         const data = await response.data.Result;
         setCategories(data);

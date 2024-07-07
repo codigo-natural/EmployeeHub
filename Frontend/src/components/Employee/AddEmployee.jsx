@@ -20,10 +20,6 @@ export const AddEmployee = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-
-  }, [])
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setEmployee(prevState => ({
