@@ -7,6 +7,7 @@ import { config } from "./config/index.js";
 
 const PORT = config.port;
 
+// Middlewares
 const app = express();
 app.use(
   cors({
@@ -16,6 +17,9 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.static("public"));
+
+// Routes
 app.use("/auth", adminRouter);
 app.use("/auth", Category);
 app.use("/auth", Employee);

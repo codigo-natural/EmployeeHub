@@ -6,6 +6,18 @@ import path from "path";
 
 const router = express.Router();
 
+router.get("/employee", (req, res) => {
+  const sql = "SELECT * FROM employee";
+  connection.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.json({ Status: false, Error: "Failed to fetch data" });
+    } else {
+      res.json({ Status: true, Result: result });
+    }
+  });
+});
+
 // image upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
