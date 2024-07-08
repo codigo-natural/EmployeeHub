@@ -18,6 +18,19 @@ router.get("/employee", (req, res) => {
   });
 });
 
+router.get("/employee/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "SELECT * FROM employee WHERE id = ?";
+  connection.query(sql, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.json({ Status: false, Error: "Failed to fetch data" });
+    } else {
+      res.json({ Status: true, Result: result });
+    }
+  });
+});
+
 // image upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -57,6 +70,46 @@ router.post("/add_employee", upload.single("image"), (req, res) => {
       });
     }
   });
+});
+
+router.put("/update_employee/:id", upload.single("image"), (req, res) => {
+  const id = req.params.id;
+  const { name, email, address, salary, category_id } = req.body;
+  let image = req.file ? req.file.filename : null;
+
+  // Si no se subió una nueva imagen, mantener la imagen existente
+  if (!image) {
+    const sqlGetCurrentImage = "SELECT image FROM employee WHERE id = ?";
+    connection.query(sqlGetCurrentImage, [id], (err, result) => {
+      if (err) {
+        return res.json({
+          Status: false,
+          Error: "Error getting current image",
+        });
+      }
+      if (result.length > 0) {
+        image = result[0].image;
+      }
+      updateEmployee();
+    });
+  } else {
+    updateEmployee();
+  }
+
+  function updateEmployee() {
+    const sql = `UPDATE employee SET name=?, email=?, address=?, salary=?, image=?, category_id=? WHERE id=?`;
+    const values = [name, email, address, salary, image, category_id, id];
+
+    connection.query(sql, values, (err, result) => {
+      if (err) {
+        return res.json({ Status: false, Error: err });
+      }
+      return res.json({
+        Status: true,
+        Result: result,
+      });
+    });
+  }
 });
 
 export default router;
