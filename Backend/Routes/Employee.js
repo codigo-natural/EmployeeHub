@@ -72,6 +72,19 @@ router.post("/add_employee", upload.single("image"), (req, res) => {
   });
 });
 
+router.delete("/delete_employee/:id", (req, res) => {
+  const id = req.params.id;
+  const sql = "DELETE FROM employee WHERE id = ?";
+  connection.query(sql, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.json({ Status: false, Error: "Failed to delete data" });
+    } else {
+      return res.json({ Status: true, Result: result });
+    }
+  });
+});
+
 router.put("/update_employee/:id", upload.single("image"), (req, res) => {
   const id = req.params.id;
   const { name, email, address, salary, category_id } = req.body;
