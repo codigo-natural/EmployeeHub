@@ -13,6 +13,19 @@ export const Employee = () => {
     fetchEmployee()
   }, [])
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await api.delete(`/auth/delete_employee/${id}`)
+      if (response.data.Status) {
+        // fetchEmployee()
+        // navigate('/dashboard/employee')
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const fetchEmployee = async () => {
     try {
       setLoading(true)
@@ -67,7 +80,7 @@ export const Employee = () => {
                     Edit
                   </Link>
                   <button
-                    // onClick={() => handleDelete(employee.id)}
+                    onClick={() => handleDelete(employee.id)}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   >
                     Delete
