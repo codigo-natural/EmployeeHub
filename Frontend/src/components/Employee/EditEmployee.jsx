@@ -186,7 +186,7 @@ export const EditEmployee = () => {
           {employee.image && (
             <div>
               <p className="text-sm text-gray-500">Current Image:</p>
-              <img src={`/images/${employee.image}`} alt="Current employee" className="mt-2 w-32 h-32 object-cover rounded-md" />
+              <img src={`http://localhost:3000/images/` + employee.image} alt="Current employee" className="mt-2 w-32 h-32 object-cover rounded-md" />
             </div>
           )}
           <div>
